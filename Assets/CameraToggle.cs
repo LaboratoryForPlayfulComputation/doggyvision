@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Vuforia;
 
 public class CameraToggle : MonoBehaviour {
 
@@ -7,6 +8,7 @@ public class CameraToggle : MonoBehaviour {
 	private Camera camera;
 	public Button button;
 	public StereoTargetEyeMask mode;
+	private MonoBehaviour vuforiaBehaviour;
 
 	void Start() {
 		arcamera = GameObject.Find("ARCamera");
@@ -21,26 +23,17 @@ public class CameraToggle : MonoBehaviour {
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            Debug.Log("Space key was pressed.");
-            if (mode == StereoTargetEyeMask.Both) {
-            	mode = StereoTargetEyeMask.None;
-            	camera.stereoTargetEye = mode;
-                camera.fieldOfView = 30;
-            } else {
-            	mode = StereoTargetEyeMask.Both;
-            	camera.stereoTargetEye = mode;
-            }
+			toggleARCamera();
         }
     }
 
     void toggleARCamera() {
-    	if (mode == StereoTargetEyeMask.Both) {
+    	if (mode == StereoTargetEyeMask.Both) { // switching to normal mode
             	mode = StereoTargetEyeMask.None;
-            	camera.stereoTargetEye = mode;
-                camera.fieldOfView = 30;
-        } else {
+				MixedRealityController.Instance.SetMode(MixedRealityController.Mode.HANDHELD_AR);
+        } else { // switching to AR mode
             	mode = StereoTargetEyeMask.Both;
-            	camera.stereoTargetEye = mode;
+				MixedRealityController.Instance.SetMode(MixedRealityController.Mode.VIEWER_AR);
         }
     }
 

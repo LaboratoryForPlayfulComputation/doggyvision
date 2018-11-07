@@ -4,7 +4,8 @@ using System.Collections;
 using Vuforia;
 
 public class Screenshot : MonoBehaviour {
-    private string m_URL = "http://127.0.0.1:9000";
+    private string m_URL = "http://192.168.240.17:9000";
+    //private string m_URL = "http://127.0.0.1:9000";
 
     void Update() {
         if (gameObject.GetComponent<CameraToggle>().getMode() == StereoTargetEyeMask.None) { // not in VR mode
