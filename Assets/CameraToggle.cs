@@ -19,6 +19,7 @@ public class CameraToggle : MonoBehaviour {
 			camera = arcamera.GetComponent("Camera") as Camera;
 			Debug.Log(camera);
 		}
+		CameraDevice.Instance.SetFrameFormat(Vuforia.Image.PIXEL_FORMAT.RGB888, true);
 	}
 
     void Update() {
