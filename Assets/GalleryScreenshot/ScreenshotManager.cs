@@ -166,6 +166,36 @@ public class ScreenshotManager : MonoBehaviour {
 		
 		Instance.StartCoroutine(Instance.Save(bytes, fileName, path, ImageType.IMAGE));
 	}
+
+	//=============================================================================
+	// Save image png (added by Annie Kelly)
+	//=============================================================================
+	
+	public static void SaveImagePng(byte[] image, string fileName, string albumName = "MyImages")
+	{
+		Debug.Log("Save image to gallery " + fileName);
+		
+		Instance.Awake();
+		
+		string fileExt = ".png";
+		
+		string path = Application.persistentDataPath + "/" + fileName + fileExt;
+
+		#if UNITY_ANDROID
+		
+		if(Application.platform == RuntimePlatform.Android) 
+		{
+			string androidPath = Path.Combine(albumName, fileName + fileExt);
+			path = Path.Combine(Application.persistentDataPath, androidPath);
+			string pathonly = Path.GetDirectoryName(path);
+			Directory.CreateDirectory(pathonly);
+		}
+		
+		#endif
+		
+		Instance.StartCoroutine(Instance.Save(image, fileName, path, ImageType.IMAGE));
+	}
+	
 	
 	
 	IEnumerator Save(byte[] bytes, string fileName, string path, ImageType imageType)

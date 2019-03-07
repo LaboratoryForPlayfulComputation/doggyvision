@@ -14,7 +14,8 @@ public class CameraToggle : MonoBehaviour {
 		arcamera = GameObject.Find("ARCamera");
 		button = GameObject.Find("Button").GetComponent<Button>();
 		button.onClick.AddListener(toggleARCamera);
-		mode = StereoTargetEyeMask.Both;
+		mode = StereoTargetEyeMask.None;
+		MixedRealityController.Instance.SetMode(MixedRealityController.Mode.HANDHELD_AR);
 		if (arcamera != null) {
 			camera = arcamera.GetComponent("Camera") as Camera;
 			Debug.Log(camera);
